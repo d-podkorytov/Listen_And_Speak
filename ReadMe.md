@@ -24,20 +24,6 @@ and Repetition of the Text from some Sentence Book separately.
 E:\PowerShell\Listen_And_Speak>powershell.exe                               
 
 
-PS E:\PowerShell\Listen_And_Speak> dir
-
-
-    Directory: E:\PowerShell\Listen_And_Speak
-
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----         2/27/2023  11:51 AM            676 Announce
--a----         2/27/2023   9:22 AM          31027 Input.txt
--a----         2/27/2023  10:21 AM           3084 ListenAndSpeak.ps1
--a----         2/27/2023   2:08 PM            703 ReadMe.md
-
-
 PS E:\PowerShell\Listen_And_Speak> .\ListenAndSpeak.ps1
 
 
