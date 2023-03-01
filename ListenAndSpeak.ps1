@@ -40,7 +40,7 @@ Function New-TextToSpeechMessage {
             Mandatory = $false
         )]
  
-        [ValidateSet('David', 'Zira','Irina')]
+        [ValidateSet('David', 'Zira','Irina','Hazel','Mark')]
         [string]    $Voice = 'Zira'
     )
  
@@ -74,27 +74,34 @@ Add-Type -AssemblyName System.Speech
 $speak = New-Object System.Speech.Synthesis.SpeechSynthesizer
 Write-Output $speak.GetInstalledVoices().VoiceInfo
 
-New-TextToSpeechMessage -Message 'Engine Started' -Voice Zira
+New-TextToSpeechMessage -Message 'Engine Started' -Voice David
 
 #2) Read File with dot delimiter for sentencies 
 #
 #   https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content?view=powershell-7.3
 #
+$i = 1
+$startpage = 1
 
 foreach($line in Get-Content .\Input.txt -Delimiter "." ) {
 # Work here
  $starttime = Get-Date
- Write-Output $line 
- New-TextToSpeechMessage -Message $line -Voice David
+
+if ($startpage -le $i) 
+ {
+   Write-Output $line 
+   New-TextToSpeechMessage -Message $line -Voice Zira
+  }
+
  $endtime = Get-Date
 
  $tdiff = $endtime-$starttime
  $delay = $tdiff.seconds + $tdiff.seconds
 
- Write-Host "=====>> You have " $delay " seconds for repeat it , please read this sentence"
+ Write-Host "[" $i "]==> You have " $delay " seconds for repeat it , please read this sentence"
 
  Start-Sleep -Seconds $delay
-   
+ $i = $i + 1  
 }
 
 
