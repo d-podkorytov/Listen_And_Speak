@@ -1,29 +1,26 @@
 #OBJECTIVE:
 # Learning for Listening, Reading and Repeating from file Input.txt. Actually it is a Book in TXT format.
 #
-#1) Text2Speach
-#
-#   https://thesysadminchannel.com/powershell-text-to-speech-how-to-guide/
-#
 #---------------------
 
 Function New-TextToSpeechMessage {
 <#
 .SYNOPSIS
-    This will use Powershell to have a message read out loud through your computer speakers.
+    This will use Powershell to have a file Input.txt read out loud through your computer speakers.
  
  
 .NOTES
-    Name: New-TextToSpeechMessage
-    Author: theSysadminChannel
+    Name: ListenAndSpeak
+    Author: Dmitrii Podkorytov
     Version: 1.0
     DateCreated: 2021-Feb-28
+    DateEdited:  2023-Dec-10
  
 .LINK
-    https://thesysadminchannel.com/powershell-text-to-speech-how-to-guide -
+    https://github.com/d-podkorytov/Listen_And_Speak/blob/main/
  
 .EXAMPLE
-    New-TextToSpeechMessage -Message 'This is the text I want to have read out loud' -Voice Zira
+    
 #>
     [CmdletBinding()]
     param(
@@ -41,7 +38,7 @@ Function New-TextToSpeechMessage {
         )]
  
         [ValidateSet('David', 'Zira','Irina','Hazel','Mark')]
-        [string]    $Voice = 'Zira'
+        [string]    $Voice = 'David'
     )
  
     BEGIN {
@@ -90,13 +87,13 @@ foreach($line in Get-Content .\Input.txt -Delimiter "." ) {
 if ($startpage -le $i) 
  {
    Write-Output $line 
-   New-TextToSpeechMessage -Message $line -Voice Zira
+   New-TextToSpeechMessage -Message $line -Voice David
   }
 
  $endtime = Get-Date
 
  $tdiff = $endtime-$starttime
- $delay = $tdiff.seconds + $tdiff.seconds
+ $delay = $tdiff.seconds/2 # + $tdiff.seconds
 
  Write-Host "[" $i "]==> You have " $delay " seconds for repeat it , please read this sentence"
 
@@ -104,7 +101,7 @@ if ($startpage -le $i)
  $i = $i + 1  
 }
 
-
+# TODO
 #5) Fetch some from RSS feed 
 #
 # https://devblogs.microsoft.com/scripting/use-windows-powershell-to-parse-rss-feeds/
